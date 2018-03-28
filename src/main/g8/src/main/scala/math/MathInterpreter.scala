@@ -54,6 +54,8 @@ trait MathEvalEngine extends EvalEngine[MathEnvContext] {
           logger.info(s"evaluating z = \$xvalue + \$yvalue")
           val zresult = env.mathService.plus(xvalue, yvalue)
           vars.set("z", zresult.toString)
+        } getOrElse {
+          vars.set("z", "0") // --dry-run binding
         }
       case r"([a-z])\$x == (\d+)\$value" =>
         val xvalue = vars.get(x).toInt
