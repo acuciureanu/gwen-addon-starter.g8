@@ -45,19 +45,17 @@ trait MathEvalEngine extends EvalEngine[MathEnvContext] {
   override def evaluate(step: Step, env: MathEnvContext) {
     val vars = env.vars
     step.expression match {
-      case r"""([a-z])\$x = (\d+)\$value""" =>
-        vars.set(x, value)
-      case r"""([a-z])\$x = ([a-z])\$y""" =>
-        vars.set(x, vars.get(y))
-      case r"""z = ([a-z])\$x + ([a-z])\$y""" =>
+      case r"([a-z])\$x = (\d+)\$value" => vars.set(x, value)
+      case r"([a-z])\$x = ([a-z])\$y" => vars.set(x, vars.get(y))
+      case r"z = ([a-z])\$x \+ ([a-z])\$y" =>
         val xvalue = vars.get(x).toInt
         val yvalue = vars.get(y).toInt
-        env.evaluate(vars.set("z", "0")) {
+        env.perform {
           logger.info(s"evaluating z = \$xvalue + \$yvalue")
           val zresult = env.mathService.plus(xvalue, yvalue)
           vars.set("z", zresult.toString)
         }
-      case r"""([a-z])\$x == (\d+)\$value""" =>
+      case r"([a-z])\$x == (\d+)\$value" =>
         val xvalue = vars.get(x).toInt
         env.perform {
           assert(xvalue.toInt == value.toInt)
