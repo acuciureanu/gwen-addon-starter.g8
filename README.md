@@ -6,9 +6,13 @@ This is a simple Giter8 Template for building on top of [Gwen Interpreter](https
 
 [Gwen Interpreter](https://github.com/gwen-interpreter/gwen) is an innovative Gherkin interpreter with an abstracted automation engine. 
 
-Create new project from template: ```sbt new acuciureanu\gwen-addon-starter.g8```
+### Usage
 
-Run tests: ```sbt test```
+###### Create new project from template
+```sbt new acuciureanu\gwen-addon-starter.g8```
+
+###### Run tests
+```sbt test```
 
 Template license
 ----------------
